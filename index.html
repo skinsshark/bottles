@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>Snuff Bottles</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				background-color: #333;
+				margin: 0;
+				overflow: hidden;
+			}
+
+			canvas {
+				height: 100vh;
+				width: 100vw;
+			}
+
+			h1 {
+				position: fixed;
+				color: #fff;
+				font-size: 1rem;
+				margin: 0;
+				top: 10px;
+				left: 10px;
+				font-family: sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>SNUFF BOTTLES</h1>
+		<script src="js/three.js"></script>
+		<script>
+			const scene = new THREE.Scene();
+			scene.background = new THREE.Color( 0x333333 );
+			const camera = new THREE.PerspectiveCamera( 30, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var sphere = new THREE.Mesh(
+				new THREE.SphereGeometry(20, 0, 25),
+				new THREE.MeshLambertMaterial( { color: 0xB0FFD0 } )
+			);
+
+			var topCylinder = new THREE.Mesh(
+				new THREE.CylinderGeometry(20, 20, 20, 16, 4, false ),
+				new THREE.MeshLambertMaterial( { color: 0x575757 } )
+			);
+
+      var bottomCylinder = new THREE.Mesh(
+				new THREE.CylinderGeometry(20, 50, 50, 16, 4, false ),
+				new THREE.MeshLambertMaterial( { color: 0xEBEBEB } )
+			);
+
+			// var loader = new THREE.TextureLoader();
+			// loader.load( 'https://raw.githubusercontent.com/skinsshark/snuff/e1d5d6f87554aae2cfa86422e7e668f081abbc45/flower-test-1.png', function ( texture ) {
+			// 	var sphereMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+			// 	var bottomSphere = new THREE.Mesh(
+			// 		new THREE.SphereGeometry(100,16,12),
+			// 		sphereMaterial
+			// 	);
+			// 	bottomSphere.position.y = 0;
+			// 	scene.add(bottomSphere);
+			// },
+			//
+			// // onProgress callback currently not supported
+			// undefined,
+			//
+			// // onError callback
+			// function ( err ) {
+			// 	console.error( err );
+			// } );
+
+			var bottomSphere = new THREE.Mesh(
+				new THREE.SphereGeometry(100,16,12),
+				new THREE.MeshLambertMaterial( { color: 0xEBEBEB } )
+			);
+
+			sphere.position.y = 130;
+			topCylinder.position.y = 120;
+      bottomCylinder.position.y = 95;
+      bottomSphere.position.y = 0;
+
+      scene.add(sphere);
+      scene.add(topCylinder);
+      scene.add(bottomCylinder);
+      scene.add(bottomSphere);
+
+			camera.position.set(0, 20, 1000);
+			//
+			// const rightLight = new THREE.PointLight( 0xffffff );
+			// rightLight.position.set( 300, 200, 50 );
+			// scene.add( rightLight );
+
+			var topLight = new THREE.SpotLight( 0xffffff );
+			topLight.position.set( 120, 300, 300 );
+			scene.add( topLight );
+
+			// const bottomLight = new THREE.PointLight( 0xffffff );
+			// bottomLight.position.set( 0, -1200, 50 );
+			// scene.add( bottomLight );
+
+
+			const render = function () {
+				// requestAnimationFrame( render );
+				renderer.render(scene, camera);
+			};
+			render();
+
+		</script>
+	</body>
+</html>
